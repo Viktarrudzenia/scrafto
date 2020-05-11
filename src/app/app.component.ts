@@ -5,6 +5,7 @@ import { ImageFormatterComponent } from './components/image-formatter/image-form
 import { LinkFormatterComponent } from './components/link-formatter/link-formatter.component';
 import { HeaderCheckboxComponent } from './components/header-checkbox/header-checkbox.component';
 import { debug } from 'util';
+import { SelectedItemsService } from './services/selected-items.service';
 
 interface YoutubeItem {
   id: {
@@ -69,7 +70,7 @@ export class AppComponent implements OnInit {
 
   selectedItems = [];
 
-  constructor(private getDataService: GetDataService) { }
+  constructor(private getDataService: GetDataService, private selectedItemsService: SelectedItemsService) { }
 
   ngOnInit() {
     this.getDataService.getData().subscribe((recievedData: RecievedData) => {
@@ -118,6 +119,7 @@ export class AppComponent implements OnInit {
 
   onSelectionChanged() {
     this.selectedItems = this.gridApi.getSelectedRows();
+    this.selectedItemsService.emit(this.selectedItems);
   }
 
   toggleCheckboxColumn(isVisible) {

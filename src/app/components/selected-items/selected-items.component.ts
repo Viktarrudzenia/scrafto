@@ -1,4 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { SelectedItemsService } from 'src/app/services/selected-items.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-selected-items',
@@ -6,5 +8,9 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./selected-items.component.scss'],
 })
 export class SelectedItemsComponent {
-  @Input() selectedItems: [][];
+  selected = new Observable<number>();
+
+  constructor(private selectedItemsService: SelectedItemsService) {
+    this.selected = this.selectedItemsService.get();
+  }
 }

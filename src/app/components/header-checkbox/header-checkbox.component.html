@@ -1,4 +1,4 @@
 <div (click)="onClick($event)">
-  <input #toggledCheckbox type="checkbox" id="toggleAll" name="toggle">
+  <input #toggledCheckbox type="checkbox" id="toggleAll" name="toggle" [checked]="isAllSelected | async">
   <label for="toggle">Select/Unselect All</label>
 </div>

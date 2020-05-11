@@ -9,6 +9,7 @@ export class GetDataService {
   }
 
   getData() {
+    // tslint:disable-next-line: max-line-length
     return this.http.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyBM1mKNNac556SuLjnxPeFHf_oCAcm5WO8&maxResults=50&type=video&part=snippet&q=john');
   }
 }

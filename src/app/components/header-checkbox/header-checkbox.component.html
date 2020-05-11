@@ -1,1 +1,4 @@
-<img width="100" height="75" src="{{ params.value }}">
+<div (click)="onClick($event)">
+  <input #toggledCheckbox type="checkbox" id="toggleAll" name="toggle">
+  <label for="toggle">Select/Unselect All</label>
+</div>

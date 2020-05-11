@@ -3,6 +3,8 @@ import { GetDataService } from './services/get-data.service';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ImageFormatterComponent } from './components/image-formatter/image-formatter.component';
 import { LinkFormatterComponent } from './components/link-formatter/link-formatter.component';
+import { HeaderCheckboxComponent } from './components/header-checkbox/header-checkbox.component';
+import { debug } from 'util';
 
 interface YoutubeItem {
   id: {
@@ -45,15 +47,14 @@ export class AppComponent implements OnInit {
 
   columnDefs = [
     {
-      field: 'selection', headerName: '',
+      field: 'selection',
+      headerName: '',
+      headerComponentFramework: HeaderCheckboxComponent,
       checkboxSelection: true,
-      headerCheckboxSelection(params) {
-        const displayedColumns = params.columnApi.getAllDisplayedColumns();
-        return displayedColumns[0] === params.column;
-      },
     },
     {
-      field: 'thumbnail', headerName: '',
+      field: 'thumbnail',
+      headerName: '',
       cellRendererFramework: ImageFormatterComponent,
       autoHeight: true,
     },

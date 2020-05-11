@@ -3,7 +3,6 @@ import { GetDataService } from './services/get-data.service';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ImageFormatterComponent } from './components/image-formatter/image-formatter.component';
 import { LinkFormatterComponent } from './components/link-formatter/link-formatter.component';
-import { HeaderCheckboxComponent } from './components/header-checkbox/header-checkbox.component';
 
 interface YoutubeItem {
   id: {
@@ -27,6 +26,10 @@ interface RowDataItem {
     name: string;
     id: string;
   };
+}
+
+interface RecievedData {
+  items: YoutubeItem[];
 }
 
 @Component({
@@ -68,10 +71,10 @@ export class AppComponent implements OnInit {
   constructor(private getDataService: GetDataService) { }
 
   ngOnInit() {
-    this.getDataService.getData().subscribe((recievedData: YoutubeItem[]) => {
+    this.getDataService.getData().subscribe((recievedData: RecievedData) => {
       const parsedData: RowDataItem[] = [];
 
-      recievedData['items'].map((item: YoutubeItem) => {
+      recievedData.items.map((item: YoutubeItem) => {
         const parsedItem: RowDataItem = {
           thumbnail: 'https://p7.hiclipart.com/preview/144/913/211/no-symbol-sign-clip-art-svg.jpg',
           description: 'Default description',
@@ -119,5 +122,32 @@ export class AppComponent implements OnInit {
   toggleCheckboxColumn(isVisible) {
     this.gridColumnApi.setColumnVisible('selection', isVisible);
     this.isCheckboxColumnVisible = !this.isCheckboxColumnVisible;
+  }
+
+  getContextMenuItems(params) {
+    if (params.column.colId === 'title') {
+      return [
+        {
+          name: 'Open in new tab',
+          action() {
+            // here implement redirect to link
+            window.alert('Imagine that here redirect to youtube link with id: ' + params.value.id);
+          },
+        },
+        'copy',
+        'copyWithHeaders',
+        'paste',
+        'separator',
+        'export',
+      ];
+    } else {
+      return [
+        'copy',
+        'copyWithHeaders',
+        'paste',
+        'separator',
+        'export',
+      ];
+    }
   }
 }

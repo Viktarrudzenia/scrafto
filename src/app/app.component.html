@@ -13,8 +13,10 @@
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       rowSelection="multiple"
-      (gridReady)="onGridReady($event)"
+      [allowContextMenuWithControlKey]="true"
+      [getContextMenuItems]="getContextMenuItems"
       (selectionChanged)="onSelectionChanged($event)"
+      (gridReady)="onGridReady($event)"
   >
   </ag-grid-angular>
 </div>
